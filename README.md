@@ -1,12 +1,12 @@
-=========== NANO KVM SEGURANÇA ===========
+# =========== NANO KVM SEGURANÇA ===========
 
----- Ativar HTTPS ----
+##---- Ativar HTTPS ----
 --->> Marcar em Network > HTTPS
 
----- Ativar SSH ----
+##---- Ativar SSH ----
 --->> Marcar em Settings > Device > SSH
 
----- Editar porta WEB ----
+##---- Editar porta WEB ----
 ```
 nano /etc/kvm/server.yaml
 ```
@@ -16,7 +16,7 @@ https: 21993
 
 Depois ir no painel web e reiniciar o KVM.
 
----- MUDAR PORTA SSH ----
+##---- MUDAR PORTA SSH ----
 ```
 nano /etc/ssh/sshd_config
 ```
@@ -30,7 +30,7 @@ ctrl x para salvar e depois Y
 Depois ir no painel web e reiniciar o KVM.
 
 
----- FIREWALL IPTABLES ----
+## ---- FIREWALL IPTABLES ----
 
 1. Limpar regras antigas
 
