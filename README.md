@@ -1,29 +1,30 @@
-# =========== NANO KVM SEGURANÇA ===========
+#  NanoKVM melhorar SEGURANÇA
 
-##---- Ativar HTTPS ----
+## ---- Ativar HTTPS ----
 --->> Marcar em Network > HTTPS
 
-##---- Ativar SSH ----
+## ---- Ativar SSH ----
 --->> Marcar em Settings > Device > SSH
 
-##---- Editar porta WEB ----
+## ---- Editar porta WEB ----
 ```
 nano /etc/kvm/server.yaml
 ```
-
+```
 http: 21995
 https: 21993
-
+```
 Depois ir no painel web e reiniciar o KVM.
 
-##---- MUDAR PORTA SSH ----
+## ---- MUDAR PORTA SSH ----
 ```
 nano /etc/ssh/sshd_config
 ```
 
-descomentar
-#Port 22
+descomentar tirando a hashtag # definir a porta
+```
 Port 2174
+```
 
 ctrl x para salvar e depois Y
 
@@ -33,9 +34,9 @@ Depois ir no painel web e reiniciar o KVM.
 ## ---- FIREWALL IPTABLES ----
 
 1. Limpar regras antigas
-
+```
 iptables -F
-
+```
 2. Liberar localhost
 ```
 iptables -A INPUT -i lo -j ACCEPT
@@ -51,13 +52,19 @@ iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 ```
 iptables -A INPUT -p tcp -s IP_AQUI --dport 2174 -j ACCEPT
 ```
-5. 7. Liberar NanoKVM HTTPS e HTTP somente para seus IPs 
+5. Liberar NanoKVM HTTPS e HTTP somente para seus IPs 
 (mais de 1 ip faz 2x com o comando e novo ip)
 ```
 iptables -A INPUT -p tcp -s IP_AQUI --dport 21993 -j ACCEPT
 iptables -A INPUT -p tcp -s IP_AQUI --dport 21995 -j ACCEPT
 ```
 6. Ativar bloqueio padrão (bloquear tudo por padrão e só liberar o que precisar)
+
+```
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+```
 
 7. Verificar as regras
 ```
